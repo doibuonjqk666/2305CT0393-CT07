@@ -1,0 +1,34 @@
+=========================================================
+ HUONG DAN CHAY LAB3 (Login bam mat khau + CRUD dang ky mon hoc)
+=========================================================
+
+1. Pull image MySQL
+   docker pull mysql:8.0
+
+2. Chay MySQL (mat khau root = Vietnam@123, mo cong 3306)
+   docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=Vietnam@123 -p 3306:3306 mysql:8.0
+
+   (Neu container da co san thi chi can bat lai:  docker start mysql-db)
+
+3. Nap CSDL: tao database "school" + bang tbl_user (dang nhap) + bang records (mon hoc)
+   docker exec -i mysql-db mysql -uroot -pVietnam@123 < db_school.sql
+
+   -> Sau buoc nay da co san 4 tai khoan, mat khau tat ca la: 123456
+      username: dhgia | admin | user1 | user2
+
+4. Chay web
+   cd lab3
+   mvn tomcat7:run
+
+5. Mo trinh duyet
+   - Local:     http://localhost:8080/
+   - Codespaces: bam vao cong 8080 o tab PORTS (dat Visibility = Public neu can)
+
+   -> Trang dang nhap hien ra. Dang nhap: admin / 123456
+   -> Vao duoc bang danh sach mon hoc, co Them / Edit (sua) / Delete (xoa).
+   -> Nut "Dang xuat" o goc tren ben phai.
+
+Ghi chu:
+ - Code ket noi DB o file: src/main/java/context/DBContext1.java (host 127.0.0.1, DB school).
+ - Ham bam mat khau: src/main/java/util/PasswordUtil.java (SHA-256, khop SHA2(...,256) cua MySQL).
+ - Kiem tra container:  docker ps -a
