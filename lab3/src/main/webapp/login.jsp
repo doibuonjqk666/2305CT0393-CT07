@@ -1,73 +1,38 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Đăng nhập</title>
-    <style>
-        body {
-            margin: 0px;
-            font-family: Arial, sans-serif;
-        }
-
-        .login-box {
-            width: 350px;
-            margin: 80px auto;
-            padding: 25px;
-            background-color: #eaf5d7;
-            border: 1px solid #1013be;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-
-        input {
-            width: 100%;
-            height: 30px;
-            box-sizing: border-box;
-        }
-
-        button {
-            margin-top: 15px;
-            width: 100%;
-            height: 35px;
-        }
-
-        .error {
-            color: red;
-            text-align: center;
-            margin-top: 10px;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập hệ thống</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <div class="card-header">
+                <h1>Đăng nhập</h1>
+                <p>Chào mừng bạn quay trở lại</p>
+            </div>
 
-    <div class="login-box">
+            <form action="login" method="post">
+                <div class="form-group">
+                    <label for="username">Tên đăng nhập</label>
+                    <input class="input-field" id="username" name="username" type="text" required/>
+                </div>
 
-        <h1>Đăng nhập</h1>
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <input class="input-field" id="password" name="password" type="password" required/>
+                </div>
 
-        <form action="login" method="post">
+                <button class="button-primary" type="submit">Đăng nhập</button>
+            </form>
 
-            <label for="username">Username</label>
-            <input id="username" name="username" type="text" required/>
-
-            <label for="password">Password</label>
-            <input id="password" name="password" type="password" required/>
-
-            <button type="submit">Đăng nhập</button>
-        </form>
-
-        <% if ("1".equals(request.getParameter("error"))) { %>
-            <p class="error">Sai username hoặc mật khẩu!</p>
-        <% } %>
-
+            <% if ("1".equals(request.getParameter("error"))) { %>
+                <p class="error-message">Sai username hoặc mật khẩu!</p>
+            <% } %>
+        </div>
     </div>
-
 </body>
 </html>
