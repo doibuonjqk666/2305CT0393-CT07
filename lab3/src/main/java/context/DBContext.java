@@ -11,7 +11,7 @@ public class DBContext {
     private final String DATABASE = "northwind";
 
     private final String USER = "root";
-    private final String PASSWORD = "Vietnam@123";
+    private final String PASSWORD = "123456";
 
     public Connection getConnection() {
 
