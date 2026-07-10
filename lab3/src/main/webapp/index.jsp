@@ -4,9 +4,10 @@
 <%@ page import="dao.*" %>
 
 <%
-    // Chua dang nhap thi da ve trang login.
+    // Chua dang nhap thi da ve trang login (redirect tuong doi, khong chen host:port).
     if (session.getAttribute("user") == null) {
-        response.sendRedirect("login.jsp");
+        response.setStatus(302);
+        response.setHeader("Location", "login.jsp");
         return;
     }
 

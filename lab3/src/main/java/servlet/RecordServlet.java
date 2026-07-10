@@ -2,6 +2,7 @@ package servlet;
 
 import dao.RecordDAO;
 import model.Record;
+import util.Web;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -20,7 +21,7 @@ public class RecordServlet extends HttpServlet {
     private boolean chuaDangNhap(HttpServletRequest request,
                                  HttpServletResponse response) throws IOException {
         if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect("login.jsp");
+            Web.redirect(response, "login.jsp");
             return true;
         }
         return false;
@@ -54,7 +55,7 @@ public class RecordServlet extends HttpServlet {
             dao.delete(id);
         }
 
-        response.sendRedirect("index.jsp");
+        Web.redirect(response, "index.jsp");
     }
 
     // Nhan du lieu tu form: id rong => THEM, id co gia tri => SUA
@@ -88,6 +89,6 @@ public class RecordServlet extends HttpServlet {
             dao.update(new Record(id, stname, course, fee));
         }
 
-        response.sendRedirect("index.jsp");
+        Web.redirect(response, "index.jsp");
     }
 }

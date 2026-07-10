@@ -1,6 +1,7 @@
 package servlet;
 
 import dao.UserDAO;
+import util.Web;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -33,10 +34,10 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user", username.trim());
 
-            response.sendRedirect("index.jsp");
+            Web.redirect(response, "index.jsp");
 
         } else {
-            response.sendRedirect("login.jsp?error=1");
+            Web.redirect(response, "login.jsp?error=1");
         }
     }
 }

@@ -21,10 +21,10 @@ CREATE TABLE IF NOT EXISTS tbl_user (
 
 -- Mat khau la 123456 duoc bam bang SHA2(...,256), khop voi PasswordUtil.sha256 ben Java
 INSERT INTO tbl_user (username, password, email, address) VALUES
-('dhgia', SHA2('123456',256), 'dhgia@hce.edu.vn', 'HoChiMinh City'),
-('admin', SHA2('123456',256), 'admin@hce.edu.vn', 'HoChiMinh City'),
-('user1', SHA2('123456',256), 'user1@hce.edu.vn', 'HoChiMinh City'),
-('user2', SHA2('123456',256), 'user2@hce.edu.vn', 'HoChiMinh City');
+('dhgia', SHA2('123456',256), 'dhgia@dhv.edu.vn', 'HoChiMinh City'),
+('admin', SHA2('123456',256), 'admin@dhv.edu.vn', 'HoChiMinh City'),
+('user1', SHA2('123456',256), 'user1@dhv.edu.vn', 'HoChiMinh City'),
+('user2', SHA2('123456',256), 'user2@dhv.edu.vn', 'HoChiMinh City');
 
 -- ---------------- Bang dang ky mon hoc ----------------
 CREATE TABLE IF NOT EXISTS records (

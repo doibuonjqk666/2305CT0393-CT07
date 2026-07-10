@@ -1,34 +1,67 @@
 =========================================================
- HUONG DAN CHAY LAB3 (Login bam mat khau + CRUD dang ky mon hoc)
+ HUONG DAN CHAY LAB3
+ (Login bam mat khau SHA-256 + CRUD dang ky mon hoc)
 =========================================================
 
-1. Pull image MySQL
-   docker pull mysql:8.0
+Yeu cau: da mo GitHub Codespaces tren repo nay (terminal dung o thu muc goc:
+/workspaces/<ten-repo>). Cac lenh docker/mvn deu chay san trong Codespaces.
 
-2. Chay MySQL (mat khau root = Vietnam@123, mo cong 3306)
-   docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=Vietnam@123 -p 3306:3306 mysql:8.0
+---------------------------------------------------------
+ B1. Bat MySQL bang Docker (mat khau root = Vietnam@123, cong 3306)
+---------------------------------------------------------
+    docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=Vietnam@123 -p 3306:3306 mysql:8.0
 
-   (Neu container da co san thi chi can bat lai:  docker start mysql-db)
+    Cho ~25 giay cho MySQL khoi dong xong.
+    (Neu container da tao roi thi chi can bat lai:  docker start mysql-db)
 
-3. Nap CSDL: tao database "school" + bang tbl_user (dang nhap) + bang records (mon hoc)
-   docker exec -i mysql-db mysql -uroot -pVietnam@123 < db_school.sql
+---------------------------------------------------------
+ B2. Nap CSDL: tao database "school" + tbl_user (dang nhap) + records (mon hoc)
+---------------------------------------------------------
+    Lenh nay chay tu THU MUC GOC (co san duong dan lab3/):
+        docker exec -i mysql-db mysql -uroot -pVietnam@123 < lab3/db_school.sql
 
-   -> Sau buoc nay da co san 4 tai khoan, mat khau tat ca la: 123456
-      username: dhgia | admin | user1 | user2
+    Neu ban da "cd lab3" thi bo tien to lab3/:
+        docker exec -i mysql-db mysql -uroot -pVietnam@123 < db_school.sql
 
-4. Chay web
-   cd lab3
-   mvn tomcat7:run
+    -> Dong chu "[Warning] Using a password ..." la binh thuong, KHONG phai loi.
+    -> Sau buoc nay co san 4 tai khoan, mat khau tat ca la: 123456
+       username: dhgia | admin | user1 | user2
 
-5. Mo trinh duyet
-   - Local:     http://localhost:8080/
-   - Codespaces: bam vao cong 8080 o tab PORTS (dat Visibility = Public neu can)
+---------------------------------------------------------
+ B3. Chon Java 21 (project bien dich cho Java 21)
+---------------------------------------------------------
+    Kiem tra:  java -version
+    Neu KHONG phai "21" (bao loi "invalid target release: 21" khi build) thi:
+        sdk install java 21.0.5-tem
+        sdk use java 21.0.5-tem
+    (Neu "sdk" khong nhan lenh:  source "$HOME/.sdkman/bin/sdkman-init.sh"  roi lam lai)
 
-   -> Trang dang nhap hien ra. Dang nhap: admin / 123456
-   -> Vao duoc bang danh sach mon hoc, co Them / Edit (sua) / Delete (xoa).
-   -> Nut "Dang xuat" o goc tren ben phai.
+---------------------------------------------------------
+ B4. Chay web
+---------------------------------------------------------
+    cd lab3
+    mvn tomcat7:run
 
-Ghi chu:
- - Code ket noi DB o file: src/main/java/context/DBContext1.java (host 127.0.0.1, DB school).
- - Ham bam mat khau: src/main/java/util/PasswordUtil.java (SHA-256, khop SHA2(...,256) cua MySQL).
- - Kiem tra container:  docker ps -a
+    Cho den khi thay dong:  Starting ProtocolHandler ["http-bio-8080"]
+    -> server da chay. De nguyen terminal do, dung tat.
+
+---------------------------------------------------------
+ B5. Mo trang web
+---------------------------------------------------------
+    - Codespaces: mo tab PORTS (canh Terminal) -> bam cong 8080 (icon qua dia cau).
+      Neu vao khong duoc: chuot phai cong 8080 -> Port Visibility -> Public.
+    - Local:      http://localhost:8080/
+
+    -> Trang dang nhap hien ra. Dang nhap:  admin / 123456
+    -> Vao bang danh sach mon hoc: co Them (dien form roi Submit),
+       Edit (sua), Delete (xoa). Nut "Dang xuat" o goc tren ben phai.
+
+---------------------------------------------------------
+ Ghi chu ky thuat
+---------------------------------------------------------
+ - Ket noi DB:   src/main/java/context/DBContext1.java  (127.0.0.1:3306, DB school)
+ - Bam mat khau: src/main/java/util/PasswordUtil.java   (SHA-256, khop SHA2(...,256))
+ - Redirect trong app dung path TUONG DOI (util/Web.java) de chay dung sau proxy
+   cua Codespaces (khong bi chen :8080 gay 404).
+ - Kiem tra container:            docker ps -a
+ - Xem du lieu user da nap chua:  docker exec -i mysql-db mysql -uroot -pVietnam@123 -e "SELECT username,password FROM school.tbl_user;"
